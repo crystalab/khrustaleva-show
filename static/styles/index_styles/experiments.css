@@ -1,0 +1,35 @@
+.flex-container {
+	display: -webkit-flex; 
+	display: flex; 
+	background: green;
+	height: 100px;
+	width: 700px;
+	justify-content: center;
+}
+
+.flex-item {
+	background: blue;
+	height: 70px;
+	width: 70px;
+	margin: 10px;
+}
+
+.ord-1 {
+	order: -1;
+}
+
+.ord1 {
+	order: 1;
+}
+
+.ord2 {
+	order: 2;
+}
+
+.ord3 {
+	order: 3;
+}
+
+.ord4 {
+	order: 4;
+}

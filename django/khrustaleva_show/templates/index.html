@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+
+{% block content %}
+
+{% load static %}
+
+<!-- Form Window -->
+	<div id="darkForForm" class="dark-for-form">
+		<div class="form-block">
+			<i  id="cross" class="fas fa-times" onclick="crossClick()"></i>
+			<h2 class="section-title">Оставьте заявку</h2>
+			<form id="darkForm" action="/" method="POST">
+				{% csrf_token %}
+				<input type="text" name="name" placeholder="Имя" class="input">
+				<br>
+				<input type="telephone" name="tel" placeholder="Телефон" class="input">
+				<br>
+				<input type="submit" name="submit" class="btn blue-btn big-size-btn">
+			</form>
+		</div>
+	</div>
+
+<!-- Home -->
+	<section id="home" style="background: url('{% static 'image/home_bg.png' %}')">
+		<div class="inner-width">
+			<div class="content">
+				<h1>Khrustaleva Show</h1>
+				<h2>Агнище, а не праздник</h2>
+				<div class="sm">
+					<a href="https://wa.me/79104624488" target="_blank" class="fab fa-whatsapp"></a>
+					<!-- <a href="#" class="fab fa-telegram-plane"></a> -->
+					<a href="https://www.instagram.com/khrustaleva_show" target="_blank" class="fab fa-instagram"></a>
+					<a href="tel:+79104624488" target="_blank" class="fas fa-phone-alt"></a>
+				</div>
+				<div class="buttons">
+					<a href="#form" class="btn home-btn very-big-size-btn">Связаться</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Advantages -->
+	<section class="advantages-section">
+		<h2 class="section-title">Почему выбирают именно нас?</h2>
+		<div class="advantages-block">
+			<ul class="left-list">
+				<li><img src="{% static 'icons/advantages/star.png' %}" class="icon"><span>Команда опытных артистов</span></li>
+				<li><img src="{% static 'icons/advantages/masks.png' %}" class="icon"><span>Яркие костюмы и реквизит</span></li>
+				<li><img src="{% static 'icons/advantages/magnifyin' %}g-glass.png" class="icon"><span>Индивидуальный подход к каждому празднику</span></li>
+				<li><img src="{% static 'icons/advantages/clothes.p' %}ng" class="icon"><span>Более 350 костюмов</span></li>
+			</ul>
+			<ul class="right-list">
+				<li><img src="{% static 'icons/advantages/calendar.' %}png" class="icon"><span>Работаем с 2015 года</span></li>
+				<li><img src="{% static 'icons/advantages/icons8-ri' %}nging-phone-96.png" class="icon"><span>Артисты всегда на связи</span></li>
+				<li><img src="{% static 'icons/advantages/money.png' %}" class="icon"><span>Делаем праздник на любой вкус и бюджет</span></li>
+				<li><img src="{% static 'icons/advantages/study.png' %}" class="icon"><span>Мы знаем о праздниках все</span></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- Animator's program -->
+	<section id="program" class="program">
+		<div class="content section">
+			<h2>Что входит в программу аниматора?</h2>
+			<div class="list">
+				<ul class="left-list">
+					<li><img src="{% static 'icons/animator_program/icons8-animation-50.png' %}" class="icon">Персонаж на выбор</li>
+					<li><img src="{% static 'icons/animator_program/icons8-german-hat-48.png' %}" class="icon">Яркий реквизит</li>
+					<li><img src="{% static 'icons/animator_program/icons8-party-balloon-48.png' %}" class="icon">Моделирование из шариков</li>
+					<li><img src="{% static 'icons/animator_program/icons8-dice-48.png' %}" class="icon">Веселые конкурсы и игры</li>
+				</ul>
+				<ul class="right-list">
+					<li><img src="{% static 'icons/animator_program/icons8-foam-bubbles-48.png' %}" class="icon">Мыльные пузырики</li>
+					<li><img src="{% static 'icons/animator_program/icons8-birthday-cake-48.png' %}" class="icon">Вынос торта</li>
+					<li><img src="{% static 'icons/animator_program/icons8-paint-palette-48.png' %}" class="icon">Лёгкий аквагрим</li>
+				</ul>
+			</div>
+			<button class="btn blue-btn very-big-size-btn" onclick="orderAndChangeLink('/program/')">Заказать</button>
+			<span class="cost">от <span>9999</span> ₽</span>
+		</div>
+		<div class="section image-div">
+			<img src="{% static 'image/Bear/Bear.png' %}" class="bear-image">
+		</div>
+	</section> 
+
+	<!-- Heroes -->
+	<section id="heroes" class="heroes-section">
+		<div class="content-box">
+			<h2 class="section-title">Персонажи</h2>
+			<div class="heroes-blocks">
+
+				{% for hero in heroes %}
+
+				<div class="hero-block">
+					<img src="{{ hero.image.url }}" class="hero-image">
+					<h4 class="hero-name">{{ hero.name }}</h4>
+					<div class="hero-btn-box">
+						<a href="{{ hero.get_absolute_url }}" class="btn yellow-btn standart-size-btn">Подробнее</a>
+					</div>
+				</div>
+
+				{% endfor %}
+			</div>
+			{% if heroes.count > 3 %}
+			<div class="more-heroes-btn">
+				<a id="moreHeroes" class="btn yellow-btn very-big-size-btn">Больше героев</a>
+			</div>
+			{% endif %}
+	</section>
+
+	<!-- Sets -->
+	<section id="sets" class="sets-section">
+		<div class="content-box">
+			<h2 class="section-title">Готовые пакеты</h2>
+			<div class="set-blocks">
+				<div class="set-block standart-set-block">
+					<img src="{% static 'image/Ship/Ship.png' %}" class="headerSetBlockImage">
+					<h3>Стандарт</h3>
+					<div class="body-set-block">
+						<span class="cost"><span>9999</span> ₽</span>
+						<ul>
+							<li><i class="fa fa-star"></i> Пункт 1</li>
+							<li><i class="fa fa-star"></i> Пункт 2</li>
+							<li><i class="fa fa-star"></i> Пункт 3</li>
+							<li><i class="fa fa-star"></i> Пункт 4</li>
+							<li><i class="fa fa-star"></i> Пункт 5</li>
+							<li><i class="fa fa-star"></i> Пункт 6</li>
+							<li><i class="fa fa-star"></i> Пункт 7</li>
+							<li><i class="fa fa-star"></i> Пункт 8</li>
+						</ul>
+						<button class="btn purple-btn big-size-btn" onclick="orderAndChangeLink('/standart_set/')">Заказать</button>
+					</div>
+				</div>
+				<div class="set-block vip-set-block">
+					<img src="{% static 'image/Castle/Castle.png' %}" class="headerSetBlockImage">
+					<h3>Vip</h3>
+					<div class="body-set-block">
+						<span class="cost"><span>9999</span> ₽</span>
+						<ul>
+							<li><i class="fa fa-star" aria-hidden="true"></i> Пункт 1</li>
+							<li><i class="fa fa-star"></i> Пункт 2</li>
+							<li><i class="fa fa-star"></i> Пункт 3</li>
+							<li><i class="fa fa-star"></i> Пункт 4</li>
+							<li><i class="fa fa-star"></i> Пункт 5</li>
+							<li><i class="fa fa-star"></i> Пункт 6</li>
+							<li><i class="fa fa-star"></i> Пункт 7</li>
+							<li><i class="fa fa-star"></i> Пункт 8</li>
+						</ul>
+						<button class="btn purple-btn big-size-btn" onclick="orderAndChangeLink('/vip_set/')">Заказать</button>
+					</div>
+				</div>
+				<div class="set-block super-set-block">
+					<img src="{% static 'image/Chest/Chest.png' %}" class="headerSetBlockImage">
+					<h3>Супер</h3>
+					<div class="body-set-block">
+						<span class="cost"><span>9999</span> ₽</span>
+						<ul>
+							<li><i class="fa fa-star"></i> Пункт 1</li>
+							<li><i class="fa fa-star"></i> Пункт 2</li>
+							<li><i class="fa fa-star"></i> Пункт 3</li>
+							<li><i class="fa fa-star"></i> Пункт 4</li>
+							<li><i class="fa fa-star"></i> Пункт 5</li>
+							<li><i class="fa fa-star"></i> Пункт 6</li>
+							<li><i class="fa fa-star"></i> Пункт 7</li>
+							<li><i class="fa fa-star"></i> Пункт 8</li>
+						</ul>
+						<button class="btn purple-btn big-size-btn" onclick="orderAndChangeLink('/super_set/')">Заказать</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Assistance Section -->
+	<section class="assistance-section">
+		<div class="help-card">
+			<img src="{% static 'icons/hourglass.png' %}">
+			<div class="content">
+				 <h2 class="section-title">Нет времени, чтобы разобраться?</h2>
+				 <div class="text-contacts">
+				 	<p>Наш консультант с радостью поможет вам создать праздник мечты</p>
+				 	<div class="contacts">
+				 		<div class="tel"><a href="tel:+79104624488">+7 (910) 462-44-88</a></div>
+				 		<div>или</div>
+				 		<div><span class="btn blue-btn big-size-btn" onclick="orderAndChangeLink('/assistance/')">Оставьте заявку</span></div>
+				 	</div>
+				 </div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Additions -->
+	<section id="additions" class="additions-section">
+		<div class="content">
+			<h2 class="section-title">Дополнения к празднику</h2>
+			<div class="addition-blocks">
+				
+				{% for addition in additions %}
+
+				<div class="addition">
+					<img src="{{ addition.icon.url }}" class="addition-icon"></img>
+					<h4>{{ addition.name }}</h4>
+					<p>{{ addition.min_description }}</p>
+					<div class="btn-and-cost">
+						<span class="cost"><span>{{ addition.cost }}</span> ₽</span>
+						<a href="{{ addition.get_absolute_url }}" class="btn white--blue-btn standart-size-btn">Подробнее</a>
+					</div>
+				</div>
+
+				{% endfor %}
+
+			</div>
+			{% if additions.count > 3 %}
+			<div class="more-heroes-btn">
+				<a id="moreAdditions" class="btn white--pink-btn very-big-size-btn">Больше дополнений</a>
+			</div>
+			{% endif %}
+		</div>
+	</section>
+
+	<!-- Shows -->
+	<section class="show-section">
+		<h2 class="section-title">Шоу для вашего праздника</h2>
+		<div class="show-blocks">
+
+			{% for show in shows %}
+
+			<div class="show-block">
+				<img class="show-image" src="{{ show.image.url }}">
+				<div class="show-content">
+					<h3>{{ show.name }}</h3>
+					<p>{{ show.min_description }}</p>
+					<a href="{{ show.get_absolute_url }}" class="btn blue-btn standart-size-btn">Подробнее</a>
+					<span class="cost"><span>{{ show.cost }}</span> ₽</span>
+				</div>
+			</div>
+
+			{% endfor %}
+
+			
+		</div>
+		{% if shows.count > 3 %}
+		<div class="more-heroes-btn">
+			<a id="moreShow" class="btn pink-btn very-big-size-btn">Больше шоу</a>
+		</div>
+		{% endif %}
+	</section>
+
+	<!-- Quests -->
+	<section class="quest-section">
+		<h2 class="section-title">Квесты</h2>
+		<div class="quest-blocks">
+
+			{% for quest in quests %}
+
+			<div class="quest-block">
+				<img class="quest-image" src="{{ quest.image.url }}">
+				<div class="quest-content blue">
+					<h3>{{ quest.name }}</h3>
+					<p>{{ quest.min_description }}</p>
+					<a href="{{ quest.get_absolute_url }}" class="btn pink-btn standart-size-btn">Подробнее</a>
+					<span class="cost"><span>{{ quest.cost }}</span> ₽</span>
+				</div>
+			</div>
+
+			{% endfor %}
+
+		</div>
+		{% if quests.count > 3 %}
+		<div class="more-heroes-btn">
+				<a id="moreQuests" class="btn blue-btn very-big-size-btn">Больше квестов</a>
+		</div>
+		{% endif %}
+	</section>
+
+	<!-- Form -->
+	<section id="form" class="form-section">
+		<div class="form-card">
+			<h2 class="section-title">Оставьте заявку</h2>
+			<form action="/" method="POST">
+				{% csrf_token %}
+				<input type="text" name="name" placeholder="Имя" class="input">
+				<br>
+				<input type="tel" name="telephone" placeholder="Телефон" class="input">
+				<br>
+				<input type="submit" name="submit" class="btn blue-btn big-size-btn" value="Отправить">
+			</form>
+			<img src="{% static 'image/Леденцы/lollipop_PNG13779.png' %}" class="lollipop">
+			<img src="{% static 'image/шарики/balloon_PNG591.png' %}" class="balloons">
+		</div>
+	</section>
+
+	<!-- Shares -->
+	<section id="stocks" class="stocks-section">
+		<h2 class="section-title">Акции</h2>
+		<div class="stock-blocks">
+
+			{% for share in shares %}
+
+			<div class="stock {% cycle 'pink-stock' 'blue-stock' %}">
+				<h3>{{ share.name }}</h3>
+				<p>{{ share.description }}</p>
+				<div class="date">{{ share.endDateString }}</div>
+			</div>
+
+			{% endfor %}
+
+			{% if shares|length > 1 %}
+			<div class="more-heroes-btn">
+				<a id="moreStocks" class="btn blue-btn very-big-size-btn">Больше акций</a>
+			</div>
+			{% endif %}
+		</div>
+	</section> 
+
+	<!-- Contacts -->
+	<section class="contacts-section">
+		<h2 class="section-title">Контакты</h2>
+		<div class="contacts-block">
+			<ul>
+				<li><img src="{% static 'icons/contacts/instagram (2).png' %}" class="icon"><a href="https://www.instagram.com/khrustaleva_show" target="_blank"><span>@khrustaleva_show</span></a></li>
+				<!-- <li><img src="{% static 'icons/contacts/telegram (2).png' %}" class="icon"><a href=""><span>@khrustaleva_show</span></a></li> -->
+				<li><img src="{% static 'icons/contacts/whatsapp (1).png' %}" class="icon"><a href="wa.me/79104624488" target="_blank">+7 (910) 462-44-88</a></li>
+				<li><img src="{% static 'icons/contacts/call.png' %}" class="icon"><a href="tel:+79104624488" target="_blank">+7 (910) 462-44-88</a></li>
+			</ul>
+		</div>
+	</section>
+
+
+	<!-- Gallery -->
+	<section id="gallery" class="gallery-section">
+		<h2 class="section-title">Галерея</h2>
+		<div class="content">
+			<div class="gallery-block grid" data-masonry='{ "itemSelector": ".grid-item", "fitWidth": true, "gutter": 5}'>
+				
+				{% for image in images %}
+
+				<img src="{{ image.image.url }}" class="grid-item" onclick="onClick(this)"></img>
+
+				{% endfor %}
+				
+			</div>
+		</div>
+	</section>
+
+	<script type="text/javascript">
+		'use strict';
+	    var multiItemSlider = (function () {
+	      return function (selector, config) {
+	        var
+	          _mainElement = document.querySelector(selector), // основный элемент блока
+	          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+	          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+	          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+	          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+	          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+	          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+	          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+	          _positionLeftItem = 0, // позиция левого активного элемента
+	          _transform = 0, // значение транфсофрмации .slider_wrapper
+	          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+	          _items = []; // массив элементов
+	        // наполнение массива _items
+	        _sliderItems.forEach(function (item, index) {
+	          _items.push({ item: item, position: index, transform: 0 });
+	        });
+
+	        var position = {
+	          getMin: 0,
+	          getMax: _items.length - 1,
+	        }
+
+	        var _transformItem = function (direction) {
+	          if (direction === 'right') {
+	            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+	              return;
+	            }
+	            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+	              _sliderControlLeft.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+	              _sliderControlRight.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem++;
+	            _transform -= _step;
+	          }
+	          if (direction === 'left') {
+	            if (_positionLeftItem <= position.getMin) {
+	              return;
+	            }
+	            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+	              _sliderControlRight.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+	              _sliderControlLeft.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem--;
+	            _transform += _step;
+	          }
+	          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+	        }
+
+	        // обработчик события click для кнопок "назад" и "вперед"
+	        var _controlClick = function (e) {
+	          if (e.target.classList.contains('slider__control')) {
+	            e.preventDefault();
+	            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+	            _transformItem(direction);
+	          }
+	        };
+
+	        var _setUpListeners = function () {
+	          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+	          _sliderControls.forEach(function (item) {
+	            item.addEventListener('click', _controlClick);
+	          });
+	        }
+
+	        // инициализация
+	        _setUpListeners();
+
+	        return {
+	          right: function () { // метод right
+	            _transformItem('right');
+	          },
+	          left: function () { // метод left
+	            _transformItem('left');
+	          }
+	        }
+
+	      }
+	    }());
+
+	    var slider = multiItemSlider('.slider')
+	</script>
+
+{% endblock %}

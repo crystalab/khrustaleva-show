@@ -1,0 +1,46 @@
+.contacts-section{
+	padding: 30px 0;
+	background-color: #fff;
+}
+
+.contacts-block{
+	display: flex;
+	justify-content: center;
+	margin: 70px 40px;
+	flex-wrap: wrap;
+}
+
+.contacts-section ul{
+	list-style: none;
+	color: #487EB0;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 30px;
+}
+
+.contacts-section .left-list{
+	margin-right: 60px;
+}
+
+.contacts-section li{
+	max-width: 450px;
+	margin-bottom: 20px;
+	display: flex;
+}
+
+.contacts-section .icon{
+	height: 50px;
+	width: 50px;
+	position: relative;
+	bottom: 12px;
+}
+
+.contacts-section span{
+	margin-left: 20px;
+}
+
+@media screen and (max-width: 1056px){
+	.advantages-section .left-list{
+		margin-right: 0px;
+	}
+}

@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ show.name }}{% endblock %}
+
+{% block styles %}
+	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/show_detail_styles/show_detail.css' %}?{% now 'U' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/slider/slider.css' %}?{% now 'U' %}">
+{% endblock %}
+
+{% block content %}
+
+	{% load static %}
+
+	<div id="darkForForm" class="dark-for-form">
+		<div class="form-block">
+			<i  id="cross" class="fas fa-times" onclick="crossClick()"></i>
+			<h2 class="section-title">Оставьте заявку</h2>
+			<form id="darkForm" action="{{ shows.get_absolute_url }}" method="POST">
+				{% csrf_token %}
+				<input type="text" name="name" placeholder="Имя" class="input">
+				<br>
+				<input type="telephone" name="tel" placeholder="Телефон" class="input">
+				<br>
+				<input type="submit" name="submit" class="btn blue-btn big-size-btn">
+			</form>
+		</div>
+	</div>
+
+	<section class="show-detail">
+		<div class="image-name-cost">
+			<div class="show-block">
+				<img class="show-image" src="{{ show.image.url }}">
+				<div class="show-content">
+					<h3>{{ show.name }}</h3>
+					<p>{{ show.description }}</p>
+					<div class="cost-block">
+						<span class="cost"><span>{{ show.cost }}</span> ₽</span>
+					</div>
+					<div class="btn-block">
+						<a class="btn blue-btn very-big-size-btn" onclick="order()">Заказать</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="description">
+			<h3 class="section-title">Что входит в шоу?</h3>
+			<ul>
+				{% if show.part1 %}
+					<li>{{ show.part1 }}</li>
+				{% endif %}
+				{% if show.part2 %}
+					<li>{{ show.part2 }}</li>
+				{% endif %}
+				{% if show.part3 %}
+					<li>{{ show.part3 }}</li>
+				{% endif %}
+				{% if show.part4 %}
+					<li>{{ show.part4 }}</li>
+				{% endif %}
+				{% if show.part5 %}
+					<li>{{ show.part5 }}</li>
+				{% endif %}
+				{% if show.part6 %}
+					<li>{{ show.part6 }}</li>
+				{% endif %}
+				{% if show.part7 %}
+					<li>{{ show.part7 }}</li>
+				{% endif %}
+			</ul>
+		</div>
+		{% if show.photo1 or show.photo2 or show.photo3 or show.photo4 or show.photo5 %}
+			<div class="gallery">
+				<h3 class="section-title">Галерея</h3>
+				<div class="slider">
+				    <div class="slider__wrapper">
+					    {% if show.photo1 %}
+			        	<div class="slider__item">
+				        	<div>
+				        		<img class="gallery-img" src="{{ show.photo1.url }}" onclick="onClick(this)">
+				        	</div>
+				        </div>
+			        	{% endif %}
+
+			        	{% if show.photo2 %}
+			        	<div class="slider__item">
+				        	<div>
+				        		<img class="gallery-img" src="{{ show.photo2.url }}" onclick="onClick(this)">
+				        	</div>
+				        </div>
+			        	{% endif %}
+
+			        	{% if show.photo3 %}
+			        	<div class="slider__item">
+				        	<div>
+				        		<img class="gallery-img" src="{{ show.photo3.url }}" onclick="onClick(this)">
+				        	</div>
+				        </div>
+			        	{% endif %}
+
+			        	{% if show.photo4 %}
+			        	<div class="slider__item">
+				        	<div>
+				        		<img class="gallery-img" src="{{ show.photo4.url }}" onclick="onClick(this)">
+				        	</div>
+				        </div>
+			        	{% endif %}
+
+			        	{% if show.photo5 %}
+			        	<div class="slider__item">
+				        	<div>
+				        		<img class="gallery-img" src="{{ show.photo5.url }}" onclick="onClick(this)">
+				        	</div>
+				        </div>
+			        	{% endif %}
+				    </div>
+				    <a class="slider__control slider__control_left" href="#" role="button"></a>
+				    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+			   </div>
+			</div>
+		{% endif %}
+
+	</section>
+
+	<script>
+	    'use strict';
+	    var multiItemSlider = (function () {
+	      return function (selector, config) {
+	        var
+	          _mainElement = document.querySelector(selector), // основный элемент блока
+	          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+	          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+	          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+	          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+	          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+	          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+	          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+	          _positionLeftItem = 0, // позиция левого активного элемента
+	          _transform = 0, // значение транфсофрмации .slider_wrapper
+	          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+	          _items = []; // массив элементов
+	        // наполнение массива _items
+	        _sliderItems.forEach(function (item, index) {
+	          _items.push({ item: item, position: index, transform: 0 });
+	        });
+
+	        var position = {
+	          getMin: 0,
+	          getMax: _items.length - 1,
+	        }
+
+	        var _transformItem = function (direction) {
+	          if (direction === 'right') {
+	            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+	              return;
+	            }
+	            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+	              _sliderControlLeft.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+	              _sliderControlRight.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem++;
+	            _transform -= _step;
+	          }
+	          if (direction === 'left') {
+	            if (_positionLeftItem <= position.getMin) {
+	              return;
+	            }
+	            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+	              _sliderControlRight.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+	              _sliderControlLeft.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem--;
+	            _transform += _step;
+	          }
+	          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+	        }
+
+	        // обработчик события click для кнопок "назад" и "вперед"
+	        var _controlClick = function (e) {
+	          if (e.target.classList.contains('slider__control')) {
+	            e.preventDefault();
+	            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+	            _transformItem(direction);
+	          }
+	        };
+
+	        var _setUpListeners = function () {
+	          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+	          _sliderControls.forEach(function (item) {
+	            item.addEventListener('click', _controlClick);
+	          });
+	        }
+
+	        // инициализация
+	        _setUpListeners();
+
+	        return {
+	          right: function () { // метод right
+	            _transformItem('right');
+	          },
+	          left: function () { // метод left
+	            _transformItem('left');
+	          }
+	        }
+
+	      }
+	    }());
+
+	    var slider = multiItemSlider('.slider')
+
+	 </script>
+{% endblock %}

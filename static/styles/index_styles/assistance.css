@@ -1,0 +1,108 @@
+.assistance-section{
+	background: #48DBFB;
+	min-height: 600px;
+	padding: 100px 30px;
+	box-sizing: border-box;
+}
+
+.assistance-section .section-title{
+	color: #fff;
+	text-align: left;
+}
+
+.help-card{
+	display: flex;
+	background: #3867D6;
+	box-shadow: -15px 15px 15px rgba(0, 0, 0, 0.4);
+	width: min(1200px, 80%);
+	min-height: 400px;
+	margin: auto;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+
+.help-card .content{
+	margin: 40px 0;
+}
+
+.help-card img{
+	height: 460px;
+	position: relative;
+	bottom: 60px;
+	margin-right: 40px;
+}
+
+.help-card p{
+	color: #fff;
+	margin: 20px 0;
+	font-size: 25px;
+}
+
+.help-card .contacts{
+	display: flex;
+	align-content: center;
+	margin-top: 40px;
+	font-size: 25px;
+	color: #fff;
+}
+
+.help-card .contacts div{
+	margin: 0 10px;
+}
+
+.help-card .contacts .tel a{
+	font-weight: 700;
+	transition: .3s linear;
+	cursor: pointer;
+	color: #fff;
+}
+
+.help-card .contacts .tel:hover a{
+	color: #48DBFB;
+}
+
+.help-card .text-contacts{
+	margin-top: 40px;
+}
+
+@media screen and (max-width: 1300px){
+	.help-card img{
+		height: 300px;
+		bottom: -40px;
+		margin-right: 40px;
+	}
+}
+
+@media screen and (max-width: 1180px){
+	.help-card img{
+		display: none;
+	}
+
+	.help-card{
+		padding: 10px 60px;
+	}
+
+	.assistance-section .section-title{
+		text-align: center;
+	}
+
+	.help-card p{
+		text-align: center;
+	}
+
+	.help-card .contacts{
+		justify-content: center;
+	}
+}
+
+@media screen and (max-width: 903px){
+	.help-card .contacts{
+		width: 300px;
+		flex-wrap: wrap;
+		margin: 40px auto 0 auto;
+	}
+
+	.help-card .contacts div{
+		margin-bottom: 15px;
+	}	
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Главная</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/header_and_home_styles.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/benefits.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/stocks.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/program.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/heroes.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/sets.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/additions.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/show.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/quests.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/gallery.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/advantages.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/contacts.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/form.css">
+	<link rel="stylesheet" type="text/css" href="../styles/index_styles/fixed-form.css">
+	<link rel="stylesheet" type="text/css" href="../styles/slider/slider.css">
+	<link rel="stylesheet" type="text/css" href="../styles/addition_detail_styles/additions_detail.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="../js/index/HeaderSection.js"></script>
+	<script src="../js/index/stocks.js"></script>
+	<script src="../js/index/heroes.js"></script>
+	<script src="../js/index/additions.js"></script>
+	<script src="../js/index/show.js"></script>
+	<script src="../js/index/quest.js"></script>
+	<script src="../js/index/gallery.js"></script>
+	<script src="../js/index/fixed-form.js"></script>
+</head>
+<body>
+
+	<!-- Navbar -->
+	<nav class="navbar">
+		<div class="inner-width">
+			<a href="/" class="logo"></a>
+			<button class="menu-toggler">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<div class="navbar-menu">
+				<a href="#program">Программа</a>
+				<a href="#heroes">Персонажи</a>
+				<a href="#sets">Пакеты</a>
+				<a href="#additions">Дополнения</a>
+				<a href="#">Отзывы</a>
+				<a href="#gallery">Галерея</a>
+			</div>
+		</div>
+	</nav>
+
+	<div id="blackBlock" class="black-block" onclick="clickOnDark()">
+		<img class="big-image" id="bigImage">
+	</div>
+
+	<section class="addition-detail">
+		<div class="addition-detail-card">
+			<div class="icon-name-cost">
+				<img src="../Icons/фотограф/picture (1).png">
+				<h2>Фотограф</h2>
+				<span class="cost"><span>2500</span> ₽</span>
+				<br>
+				<div class="btn-block">
+					<a class="btn very-big-size-btn pink-btn" onclick="order()">Заказать</a>
+				</div>
+			</div>
+			<div class="description">
+				<h3 class="section-title">Описание</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+			<div class="info">
+				<h3 class="section-title">Что входит в дополнение?</h3>
+				<ul>
+					<li>Интересный факт номер 1</li>
+					<li>Фактик второй</li>
+					<li>Третий фактит</li>
+					<li>Тут четвертый факт</li>
+					<li>Ну и последний вот тут</li>
+				</ul>
+			</div>
+			<div class="gallery">
+				<h3 class="section-title">Галерея</h3>
+				<div class="slider">
+				    <div class="slider__wrapper">
+				      <div class="slider__item">
+				        <div>
+				        	<img class="gallery-img" src="..\Images\Фотографии\58735032_289186465302670_1794927075130541984_n.jpg" onclick="onClick(this)">
+				        </div>
+				      </div>
+				      <div class="slider__item">
+				        <div>
+				        	<img class="gallery-img" src="..\Images\Фотографии\55807151_2212224885755368_360729306387751068_n.jpg" onclick="onClick(this)">
+				        </div>
+				      </div>
+				      <div class="slider__item">
+				        <div>
+				        	<img class="gallery-img" src="..\Images\Фотографии\54277400_136832587368193_7297502688754215811_n.jpg" onclick="onClick(this)">
+				        </div>
+				      </div>
+				      <div class="slider__item">
+				        <div>
+				        	<img class="gallery-img" src="..\Images\Фотографии\53086908_149183049446607_1753824542255312177_n.jpg" onclick="onClick(this)">
+				        </div>
+				      </div>
+				    </div>
+				    <a class="slider__control slider__control_left" href="#" role="button"></a>
+				    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+			  </div>
+			</div>
+		</div>
+
+	</section>
+
+	<script>
+    'use strict';
+    var multiItemSlider = (function () {
+      return function (selector, config) {
+        var
+          _mainElement = document.querySelector(selector), // основный элемент блока
+          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+          _positionLeftItem = 0, // позиция левого активного элемента
+          _transform = 0, // значение транфсофрмации .slider_wrapper
+          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+          _items = []; // массив элементов
+        // наполнение массива _items
+        _sliderItems.forEach(function (item, index) {
+          _items.push({ item: item, position: index, transform: 0 });
+        });
+
+        var position = {
+          getMin: 0,
+          getMax: _items.length - 1,
+        }
+
+        var _transformItem = function (direction) {
+          if (direction === 'right') {
+            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+              return;
+            }
+            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+              _sliderControlLeft.classList.add('slider__control_show');
+            }
+            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+              _sliderControlRight.classList.remove('slider__control_show');
+            }
+            _positionLeftItem++;
+            _transform -= _step;
+          }
+          if (direction === 'left') {
+            if (_positionLeftItem <= position.getMin) {
+              return;
+            }
+            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+              _sliderControlRight.classList.add('slider__control_show');
+            }
+            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+              _sliderControlLeft.classList.remove('slider__control_show');
+            }
+            _positionLeftItem--;
+            _transform += _step;
+          }
+          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+        }
+
+        // обработчик события click для кнопок "назад" и "вперед"
+        var _controlClick = function (e) {
+          if (e.target.classList.contains('slider__control')) {
+            e.preventDefault();
+            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+            _transformItem(direction);
+          }
+        };
+
+        var _setUpListeners = function () {
+          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+          _sliderControls.forEach(function (item) {
+            item.addEventListener('click', _controlClick);
+          });
+        }
+
+        // инициализация
+        _setUpListeners();
+
+        return {
+          right: function () { // метод right
+            _transformItem('right');
+          },
+          left: function () { // метод left
+            _transformItem('left');
+          }
+        }
+
+      }
+    }());
+
+    var slider = multiItemSlider('.slider')
+
+  </script>
+
+</body>
+</html>

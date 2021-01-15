@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ quest.name }}{% endblock %}
+
+{% block styles %}
+	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/quest_detail_styles/quest_detail.css' %}?{% now 'U' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/slider/slider.css' %}?{% now 'U' %}">
+{% endblock %}
+
+{% block content %}
+
+	{% load static %}
+
+	<div id="darkForForm" class="dark-for-form">
+		<div class="form-block">
+			<i  id="cross" class="fas fa-times" onclick="crossClick()"></i>
+			<h2 class="section-title">Оставьте заявку</h2>
+			<form id="darkForm" action="{{ quest.get_absolute_url }}" method="POST">
+				{% csrf_token %}
+				<input type="text" name="name" placeholder="Имя" class="input">
+				<br>
+				<input type="telephone" name="tel" placeholder="Телефон" class="input">
+				<br>
+				<input type="submit" name="submit" class="btn blue-btn big-size-btn">
+			</form>
+		</div>
+	</div>
+
+	<section class="show-detail">
+		<div class="image-name-cost">
+			<div class="show-block">
+				<img class="show-image" src="{{ quest.image.url }}">
+				<div class="show-content">
+					<h3>{{ quest.name }}</h3>
+					<p>{{ quest.description }}</p>
+					<div class="cost-block">
+						<span class="cost"><span>{{ quest.cost }}</span> ₽</span>
+					</div>
+					<div class="btn-block">
+						<a class="btn pink-btn very-big-size-btn" onclick="order()">Заказать</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="description">
+			<h3 class="section-title">Что входит в квест?</h3>
+			<ul>
+				<ul>
+				{% if quest.part1 %}
+					<li>{{ quest.part1 }}</li>
+				{% endif %}
+				{% if quest.part2 %}
+					<li>{{ quest.part2 }}</li>
+				{% endif %}
+				{% if quest.part3 %}
+					<li>{{ quest.part3 }}</li>
+				{% endif %}
+				{% if quest.part4 %}
+					<li>{{ quest.part4 }}</li>
+				{% endif %}
+				{% if quest.part5 %}
+					<li>{{ quest.part5 }}</li>
+				{% endif %}
+				{% if quest.part6 %}
+					<li>{{ quest.part6 }}</li>
+				{% endif %}
+				{% if quest.part7 %}
+					<li>{{ quest.part7 }}</li>
+				{% endif %}
+			</ul>
+			</ul>
+		</div>
+		<div class="gallery">
+			<h3 class="section-title">Галерея</h3>
+			<div class="slider">
+			    <div class="slider__wrapper">
+			    	{% if quest.photo1 %}
+		        	<div class="slider__item">
+			        	<div>
+			        		<img class="gallery-img" src="{{ quest.photo1.url }}" onclick="onClick(this)">
+			        	</div>
+			        </div>
+		        	{% endif %}
+
+		        	{% if quest.photo2 %}
+		        	<div class="slider__item">
+			        	<div>
+			        		<img class="gallery-img" src="{{ quest.photo2.url }}" onclick="onClick(this)">
+			        	</div>
+			        </div>
+		        	{% endif %}
+
+		        	{% if quest.photo3 %}
+		        	<div class="slider__item">
+			        	<div>
+			        		<img class="gallery-img" src="{{ quest.photo3.url }}" onclick="onClick(this)">
+			        	</div>
+			        </div>
+		        	{% endif %}
+
+		        	{% if quest.photo4 %}
+		        	<div class="slider__item">
+			        	<div>
+			        		<img class="gallery-img" src="{{ quest.photo4.url }}" onclick="onClick(this)">
+			        	</div>
+			        </div>
+		        	{% endif %}
+
+		        	{% if quest.photo5 %}
+		        	<div class="slider__item">
+			        	<div>
+			        		<img class="gallery-img" src="{{ quest.photo5.url }}" onclick="onClick(this)">
+			        	</div>
+			        </div>
+		        	{% endif %}
+			    </div>
+			    <a class="slider__control slider__control_left" href="#" role="button"></a>
+			    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+		  </div>
+		</div>
+
+	</section>
+
+	<script>
+	    'use strict';
+	    var multiItemSlider = (function () {
+	      return function (selector, config) {
+	        var
+	          _mainElement = document.querySelector(selector), // основный элемент блока
+	          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+	          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+	          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+	          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+	          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+	          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+	          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+	          _positionLeftItem = 0, // позиция левого активного элемента
+	          _transform = 0, // значение транфсофрмации .slider_wrapper
+	          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+	          _items = []; // массив элементов
+	        // наполнение массива _items
+	        _sliderItems.forEach(function (item, index) {
+	          _items.push({ item: item, position: index, transform: 0 });
+	        });
+
+	        var position = {
+	          getMin: 0,
+	          getMax: _items.length - 1,
+	        }
+
+	        var _transformItem = function (direction) {
+	          if (direction === 'right') {
+	            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+	              return;
+	            }
+	            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+	              _sliderControlLeft.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+	              _sliderControlRight.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem++;
+	            _transform -= _step;
+	          }
+	          if (direction === 'left') {
+	            if (_positionLeftItem <= position.getMin) {
+	              return;
+	            }
+	            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+	              _sliderControlRight.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+	              _sliderControlLeft.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem--;
+	            _transform += _step;
+	          }
+	          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+	        }
+
+	        // обработчик события click для кнопок "назад" и "вперед"
+	        var _controlClick = function (e) {
+	          if (e.target.classList.contains('slider__control')) {
+	            e.preventDefault();
+	            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+	            _transformItem(direction);
+	          }
+	        };
+
+	        var _setUpListeners = function () {
+	          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+	          _sliderControls.forEach(function (item) {
+	            item.addEventListener('click', _controlClick);
+	          });
+	        }
+
+	        // инициализация
+	        _setUpListeners();
+
+	        return {
+	          right: function () { // метод right
+	            _transformItem('right');
+	          },
+	          left: function () { // метод left
+	            _transformItem('left');
+	          }
+	        }
+
+	      }
+	    }());
+
+	    var slider = multiItemSlider('.slider')
+
+	 </script>
+
+{% endblock %}

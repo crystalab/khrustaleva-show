@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ addition.name }}{% endblock %}
+
+{% block styles %}
+	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/addition_detail_styles/additions_detail.css' %}?{% now 'U' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/slider/slider.css' %}?{% now 'U' %}">
+{% endblock %}
+
+{% block content %}
+
+	{% load static %}
+
+	<div id="darkForForm" class="dark-for-form">
+		<div class="form-block">
+			<i  id="cross" class="fas fa-times" onclick="crossClick()"></i>
+			<h2 class="section-title">Оставьте заявку</h2>
+			<form id="darkForm" action="{{ addition.get_absolute_url }}" method="POST">
+				{% csrf_token %}
+				<input type="text" name="name" placeholder="Имя" class="input">
+				<br>
+				<input type="telephone" name="tel" placeholder="Телефон" class="input">
+				<br>
+				<input type="submit" name="submit" class="btn blue-btn big-size-btn">
+			</form>
+		</div>
+	</div>
+
+	<section class="addition-detail" style="background: url('{% static '/image/крутой фон.png' %}')">
+		<div class="addition-detail-card">
+			<div class="icon-name-cost">
+				<img src="{{ addition.icon.url }}">
+				<h2>{{ addition.name }}</h2>
+				<span class="cost"><span>{{ addition.cost }}</span> ₽</span>
+				<br>
+				<div class="btn-block">
+					<a class="btn very-big-size-btn pink-btn" onclick="order()">Заказать</a>
+				</div>
+			</div>
+			<div class="description">
+				<h3 class="section-title">Описание</h3>
+				<p>
+					{{ addition.description }}
+				</p>
+			</div>
+			<div class="info">
+				<h3 class="section-title">Что входит в дополнение?</h3>
+				<ul>
+					{% if addition.part1 %}
+						<li>{{ addition.part1 }}</li>
+					{% endif %}
+					{% if addition.part2 %}
+						<li>{{ addition.part2 }}</li>
+					{% endif %}
+					{% if addition.part3 %}
+						<li>{{ addition.part3 }}</li>
+					{% endif %}
+					{% if addition.part4 %}
+						<li>{{ addition.part4 }}</li>
+					{% endif %}
+					{% if addition.part5 %}
+						<li>{{ addition.part5 }}</li>
+					{% endif %}
+					{% if addition.part6 %}
+						<li>{{ addition.part6 }}</li>
+					{% endif %}
+					{% if addition.part7 %}
+						<li>{{ addition.part7 }}</li>
+					{% endif %}
+				</ul>
+			</div>
+			{% if addition.photo1 or addition.photo2 or addition.photo3 or addition.photo4 or addition.photo5 %}
+				<div class="gallery">
+					<h3 class="section-title">Галерея</h3>
+					<div class="slider">
+					    <div class="slider__wrapper">
+						    {% if addition.photo1 %}
+				        	<div class="slider__item">
+					        	<div>
+					        		<img class="gallery-img" src="{{ addition.photo1.url }}" onclick="onClick(this)">
+					        	</div>
+					        </div>
+				        	{% endif %}
+
+				        	{% if addition.photo2 %}
+				        	<div class="slider__item">
+					        	<div>
+					        		<img class="gallery-img" src="{{ addition.photo2.url }}" onclick="onClick(this)">
+					        	</div>
+					        </div>
+				        	{% endif %}
+
+				        	{% if addition.photo3 %}
+				        	<div class="slider__item">
+					        	<div>
+					        		<img class="gallery-img" src="{{ addition.photo3.url }}" onclick="onClick(this)">
+					        	</div>
+					        </div>
+				        	{% endif %}
+
+				        	{% if addition.photo4 %}
+				        	<div class="slider__item">
+					        	<div>
+					        		<img class="gallery-img" src="{{ addition.photo4.url }}" onclick="onClick(this)">
+					        	</div>
+					        </div>
+				        	{% endif %}
+
+				        	{% if addition.photo5 %}
+				        	<div class="slider__item">
+					        	<div>
+					        		<img class="gallery-img" src="{{ addition.photo5.url }}" onclick="onClick(this)">
+					        	</div>
+					        </div>
+				        	{% endif %}
+					    </div>
+					    <a class="slider__control slider__control_left" href="#" role="button"></a>
+					    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+				   </div>
+				</div>
+				{% endif %}
+		</div>
+
+	</section>
+
+	<script>
+	    'use strict';
+	    var multiItemSlider = (function () {
+	      return function (selector, config) {
+	        var
+	          _mainElement = document.querySelector(selector), // основный элемент блока
+	          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+	          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+	          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+	          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+	          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+	          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+	          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+	          _positionLeftItem = 0, // позиция левого активного элемента
+	          _transform = 0, // значение транфсофрмации .slider_wrapper
+	          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+	          _items = []; // массив элементов
+	        // наполнение массива _items
+	        _sliderItems.forEach(function (item, index) {
+	          _items.push({ item: item, position: index, transform: 0 });
+	        });
+
+	        var position = {
+	          getMin: 0,
+	          getMax: _items.length - 1,
+	        }
+
+	        var _transformItem = function (direction) {
+	          if (direction === 'right') {
+	            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+	              return;
+	            }
+	            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+	              _sliderControlLeft.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+	              _sliderControlRight.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem++;
+	            _transform -= _step;
+	          }
+	          if (direction === 'left') {
+	            if (_positionLeftItem <= position.getMin) {
+	              return;
+	            }
+	            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+	              _sliderControlRight.classList.add('slider__control_show');
+	            }
+	            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+	              _sliderControlLeft.classList.remove('slider__control_show');
+	            }
+	            _positionLeftItem--;
+	            _transform += _step;
+	          }
+	          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+	        }
+
+	        // обработчик события click для кнопок "назад" и "вперед"
+	        var _controlClick = function (e) {
+	          if (e.target.classList.contains('slider__control')) {
+	            e.preventDefault();
+	            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+	            _transformItem(direction);
+	          }
+	        };
+
+	        var _setUpListeners = function () {
+	          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+	          _sliderControls.forEach(function (item) {
+	            item.addEventListener('click', _controlClick);
+	          });
+	        }
+
+	        // инициализация
+	        _setUpListeners();
+
+	        return {
+	          right: function () { // метод right
+	            _transformItem('right');
+	          },
+	          left: function () { // метод left
+	            _transformItem('left');
+	          }
+	        }
+
+	      }
+	    }());
+
+	    var slider = multiItemSlider('.slider')
+	</script>
+
+{% endblock %}

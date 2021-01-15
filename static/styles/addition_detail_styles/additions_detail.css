@@ -1,0 +1,145 @@
+.addition-detail{
+	padding-top: 150px;
+	color: #fff;
+}
+
+.addition-detail .section-title{
+	color: #fff;
+	line-height: 50px
+}
+
+.icon-name-cost .btn-block{
+	margin: 30px 0 60px 0;
+}
+
+.addition-detail-card{
+	border: 3px solid #2980b9;
+	background: #48DBFB;
+	box-shadow: -10px 10px 10px rgba(0, 0, 0, .5);
+	width: min(1000px, 80%);
+	margin: auto;
+	padding: 30px 0;
+	border-radius: 50px;
+	margin-bottom: 50px;
+}
+
+.icon-name-cost{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.icon-name-cost h2{
+	font-size: 50px;
+}
+
+.addition-detail .cost{
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 15px;
+	font-weight: 500;
+	font-size: 20px;
+}
+
+.addition-detail .cost span{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 45px;
+	font-weight: 500;
+}
+
+.description{
+	padding: 0 30px;
+}
+
+.description p{
+	margin: 30px auto;
+	font-size: 20px;
+	max-width: 700px;
+	text-align: center;
+	line-height: 30px;
+	font-weight: 500;
+}
+
+.description{
+	margin: 80px auto;
+}
+
+.info{
+	background: #FC427B;
+	padding: 30px;
+	margin-bottom: 50px;
+	box-shadow: 0 0 50px rgba(0, 0, 0, .7);
+	line-height: 35px;
+}
+
+.info ul{
+	text-align: center;
+	margin: 50px auto 30px auto;
+	font-size: 20px;
+	font-weight: 600;
+	list-style: none;
+}
+
+.gallery{
+	text-align: center;
+	padding: 0 20px;
+}
+
+.info-gallery{
+	width: min(900px, 80%);
+	margin: auto;
+}
+
+.info-gallery p{
+	text-align: center;
+	color: #fff;
+}
+
+.gallery-img{
+	height: calc(100% - 30px);
+	cursor: pointer;
+	margin: 15px 0;
+	box-sizing: border-box;
+	transition: .3s linear;
+	border-radius: 30px;
+}
+
+.gallery-img:hover{
+	transform: scale(1.01, 1.01);
+	box-shadow: -8px 8px 8px #00000044;
+}
+
+.slider__control{
+	border-radius: 100%;
+	padding: 0 5px;
+	background: #FC427B;
+}
+
+.addition-detail .btn-box{
+	text-align: center;
+	margin: 30px 0 10px 0;
+}
+
+.slider{
+	margin-top: 40px;
+}
+
+.slider__item div{
+	height: 500px;
+}
+
+@media screen and (max-width: 1050px){
+	.slider__item div{
+		height: 400px;
+	}
+}
+
+@media screen and (max-width: 900px){
+	.slider__item div{
+		height: 300px;
+	}
+}
+
+@media screen and (max-width: 650px){
+	.slider__item div{
+		height: 200px;
+	}
+}

@@ -1,0 +1,111 @@
+.additions-section{
+	background: #48DBFB;
+	padding: 30px 0;
+}
+
+.addition-icon{
+	height: 80px;
+	width: 80px;
+}
+
+.addition-blocks{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin: 30px auto;
+	width: min(1500px, 100%);
+}
+
+.addition{
+	display: none;
+	width: calc(33% - 20px);
+	text-align: center;
+	border-radius: 6px;
+	margin: 20px 0;
+	padding: 40px 20px;
+	cursor: pointer;
+	transition: .3s linear; 
+	border: 3px solid #fff;
+	color: #fff;
+	cursor: pointer;
+	box-sizing: border-box;
+	box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.addition h4{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.addition p{
+	padding-bottom: 40px;
+}
+
+.btn-and-cost{
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	position: relative;
+	vertical-align: bottom;
+}
+
+.addition .btn{
+	margin: 0 20px;
+}
+
+.addition .cost{
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 15px;
+	font-weight: 500;
+	color: #fff;
+	font-size: 20px;
+	position: relative;
+}
+
+.addition .cost span{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 35px;
+	font-weight: 500;
+}
+
+.addition:hover{
+	background-color: #FC427B;
+	border-color: #FC427B;
+	box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.additions-section .section-title{
+	color: #fff;
+}
+
+@media screen and (max-width: 1250px){
+	.addition{
+		width: calc(50% - 20px);
+	}
+}
+
+@media screen and (max-width: 900px){
+	.addition{
+		width: calc(100% - 20px);
+	}
+}
+
+.white--blue-btn{
+	color: #fff;
+	border-color: #fff;
+}
+
+.white--blue-btn:hover{
+	background-color: #48DBFB;
+	border-color: #48DBFB; 
+}
+
+.white--pink-btn{
+	color: #fff;
+	border-color: #fff;
+}
+
+.white--pink-btn:hover{
+	background-color: #FC427B;
+	border-color: #FC427B; 
+}
