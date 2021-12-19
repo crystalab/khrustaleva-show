@@ -30,7 +30,7 @@ SECRET_KEY = '9h!psak#-2%@rm=-7qt@j7(+qqq#x&s^9gazpu@jwa-lv_$5xg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['khrustalevashow.ru']
 
 
 # Application definition
